@@ -1,5 +1,6 @@
+from bitstring import BitArray, Bits
+
 from tree_node import Tree_Node
-import struct
 
 
 class HuffmanCode:
@@ -64,13 +65,10 @@ class HuffmanCode:
 
     # convert characters into binary string
     def encode(self, text):
-        return ''.join(self.codemap.get(letter) for letter in text)
-
-    def _to_Bytes(self, bits):
-        b = bytearray()
-        for i in range(0, len(bits), 8):
-            b.append(int(bits[i:i + 8], 2))
-        return bytes(b)
+        bits = BitArray()
+        for letter in text:
+            bits.append(Bits(bin=self.codemap.get(letter)))
+        return bits.tobytes()
 
     # write binary characters into file
     def compress(self):
@@ -79,10 +77,22 @@ class HuffmanCode:
         self.root_nodes()
         self.WalkTree(self.roots[0], '')
         print(self.codemap)
-        coded_bits = self.encode(text)
-        open(self.filename.split('.')[0] + 'output.txt', 'wb').write(self._to_Bytes(coded_bits))
+        bytes = self.encode(text)
+        open(self.filename.split('.')[0] + 'output.txt', 'wb').write(bytes)
+
+    # -------------------- decompression -------------------
+    def _to_binary(self, text):
+        for i in text:
+            print(i)
+
+    def decompress(self):
+        f = open(self.filename + 'output.txt', 'rb')
+        text = str(f.read()).replace("\\x", "")
+        print(text)
+        self._to_Bytes(text)
 
 
 if __name__ == '__main__':
     hc = HuffmanCode('test')
     hc.compress()
+    # hc.decompress()
