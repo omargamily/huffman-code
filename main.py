@@ -3,17 +3,16 @@ from tree_node import Tree_Node
 
 
 class HuffmanCode:
-    def __init__(self, filename):
+    def __init__(self):
         self.char_freq = {}
         self.copy = {}
         self.roots = []
         self.codemap = dict()
-        self.filename = filename
 
     # ------------------------------ compression ------------------------------
     # get frequencies
-    def get_frequency(self):
-        f = open(self.filename + ".txt", 'r')
+    def get_frequency(self, filename):
+        f = open(filename, 'r')
         text = f.read()
         for letter in text:
             if letter in self.char_freq.keys():
@@ -28,6 +27,7 @@ class HuffmanCode:
         freq = self.copy.get(letter)
         del (self.copy[letter])
         return letter, freq
+
     # used for objects
 
     def extract_min(self):
@@ -36,6 +36,7 @@ class HuffmanCode:
             if node.freq < min.freq:
                 min = node
         return min
+
     # create tree
 
     def root_nodes(self):
@@ -51,7 +52,8 @@ class HuffmanCode:
             l2 = self.extract_min()
             self.roots.remove(l2)
             self.roots.append(Tree_Node(freq=int(l1.freq) +
-                                        int(l2.freq), left=l1, right=l2))
+                                             int(l2.freq), left=l1, right=l2))
+
     # create codemap
 
     def WalkTree(self, node, prefix):
@@ -62,6 +64,7 @@ class HuffmanCode:
         else:
             self.WalkTree(node.left, prefix + '0')
             self.WalkTree(node.right, prefix + '1')
+
     # convert characters into binary string
 
     def encode(self, text):
@@ -75,41 +78,43 @@ class HuffmanCode:
         while len(padded_bits.replace("b", "")) % 8 != 0:
             padded_bits = '0' + padded_bits
         return bits.tobytes(), Bits(bin=padded_bits).tobytes()
+
     # write binary characters into file
 
-    def compress(self):
-        text = self.get_frequency()
+    def compress(self, filename):
+        text = self.get_frequency(filename)
         self.root_nodes()
         self.WalkTree(self.roots[0], '')
+        print(self.codemap)
         text_bytes, padded_byte = self.encode(text)
         s = ''
         for key in self.codemap.keys():
-            s = s + key+'\t'+self.codemap.get(key)+'\n'
+            s = s + key + '\t' + self.codemap.get(key) + '\n'
         s = s + '--\n'
-        open(self.filename.split('.')[0] + 'output.txt', 'w').write(s)
-        open(self.filename.split('.')[0] +
-             'output.txt', 'ab').write(padded_byte)
-        open(self.filename.split('.')[0] +
-             'output.txt', 'ab').write(text_bytes)
+        open(filename.split('.')[0] + 'compressed.txt', 'w').write(s)
+        open(filename.split('.')[0] +
+             'compressed.txt', 'ab').write(padded_byte)
+        open(filename.split('.')[0] +
+             'compressed.txt', 'ab').write(text_bytes)
         print('compressed')
-    # -------------------- decompression -------------------
 
     def decode(self, text):
-        # root node
         ans = ''
-        node = self.roots[0]
-        for i in text:
-            if i is '0':
-                node = node.left
+        i = n = 0
+        print(len(text))
+        while i in range(len(text)):
+            partition = text[i:n]
+            if self.codemap.get(partition) is not None:
+                ans = ans + self.codemap.get(partition)
+                i = n
             else:
-                node = node.right
-            if node.isleaf():
-                ans = ans + node.letter
-                node = self.roots[0]
+                n += 1
         return ans
 
-    def decompress(self):
-        f = open('testoutput.txt', 'r')
+    # get code map and return line number where binary starts
+    def get_codemap(self, filename):
+        f = open(filename, 'r', errors='ignore')
+        linecounter = 0
         while True:
             line = f.readline()
             if line == '--\n':
@@ -117,24 +122,34 @@ class HuffmanCode:
                 break
             else:
                 var_code = line.rstrip('\n').split('\t')
-                self.codemap.update({var_code[0]: var_code[1]})
-        f.close()
-        '''
-        with open('dwn.txt') as f:
-            for i in xrange(6):
-                f.next()
-            for line in f:
-                process(line)
-        f = open(self.filename + 'output.txt', 'rb')
-        text_array = Bits(f.read()).bin
+                self.codemap.update({var_code[1]: var_code[0]})
+            linecounter += 1
+        return linecounter
+
+    def decompress(self, filename):
+        linecounter = self.get_codemap(filename)
+        text_array = ''
+
+        # open text file and read as binary
+        fp = open(filename, 'rb')
+        for i, line in enumerate(fp):
+            # start using binary data
+            if i > linecounter:
+                text_array = text_array + Bits(line).bin
+        fp.close()
+
+        # slicing padded bits
         padded = int(text_array[:8], 2)
         text_array = text_array[8:]
         if padded != 0:
             text_array = text_array[:-padded]
-        print(self.decode(text_array))
-        '''
+        # self.decode(text_array, filename)
+        open(filename.replace("compressed","decompressed"),'w').write(self.decode(text_array))
+
+
+
 
 if __name__ == '__main__':
-    hc = HuffmanCode('sample')
-    hc.compress()
-   # hc.decompress()
+    hc = HuffmanCode()
+    hc.compress('test2.txt')
+    hc.decompress('test2compressed.txt')
