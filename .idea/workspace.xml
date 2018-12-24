@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e9424f57-9005-47bc-a99d-5f40b1042fa8" name="Default" comment="compression modified" />
+    <list default="true" id="e9424f57-9005-47bc-a99d-5f40b1042fa8" name="Default" comment="compression modified">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test2.txt" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,24 +15,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1290">
-              <caret line="90" column="0" lean-forward="false" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+            <state relative-caret-position="8">
+              <caret line="124" column="20" lean-forward="true" selection-start-line="124" selection-start-column="20" selection-end-line="124" selection-end-column="20" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
+                <element signature="e#377#707#0" expanded="false" />
+                <element signature="e#747#886#0" expanded="false" />
+                <element signature="e#947#1081#0" expanded="false" />
+                <element signature="e#1136#1713#0" expanded="false" />
+                <element signature="e#1777#2015#0" expanded="false" />
+                <element signature="e#4296#4612#0" expanded="false" />
+                <element signature="e#4721#5152#0" expanded="false" />
+                <element signature="e#5198#5799#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test.txt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -71,8 +73,8 @@
         <option value="$PROJECT_DIR$/sample.txt" />
         <option value="$PROJECT_DIR$/test" />
         <option value="$PROJECT_DIR$/.vscode/launch.json" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/test.txt" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
@@ -110,6 +112,11 @@
               <item name="huffman_code" type="b2602c69:ProjectViewProjectNode" />
               <item name="huffman_code" type="462c0819:PsiDirectoryNode" />
               <item name=".vscode" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="huffman_code" type="b2602c69:ProjectViewProjectNode" />
+              <item name="huffman_code" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -212,7 +219,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2487725" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.49590835" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.57119477" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -285,13 +292,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>148</line>
-          <option name="timeStamp" value="62" />
-        </line-breakpoint>
-      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
@@ -302,7 +302,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="66" />
+      <option name="time" value="69" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -313,6 +313,14 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#377#707#0" expanded="false" />
+            <element signature="e#747#886#0" expanded="false" />
+            <element signature="e#947#1081#0" expanded="false" />
+            <element signature="e#1136#1713#0" expanded="false" />
+            <element signature="e#1777#2015#0" expanded="false" />
+            <element signature="e#4296#4612#0" expanded="false" />
+            <element signature="e#4721#5152#0" expanded="false" />
+            <element signature="e#5198#5799#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -346,6 +354,14 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#377#707#0" expanded="false" />
+            <element signature="e#747#886#0" expanded="false" />
+            <element signature="e#947#1081#0" expanded="false" />
+            <element signature="e#1136#1713#0" expanded="false" />
+            <element signature="e#1777#2015#0" expanded="false" />
+            <element signature="e#4296#4612#0" expanded="false" />
+            <element signature="e#4721#5152#0" expanded="false" />
+            <element signature="e#5198#5799#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -454,21 +470,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1290">
-          <caret line="90" column="0" lean-forward="false" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
           <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8">
+          <caret line="124" column="20" lean-forward="true" selection-start-line="124" selection-start-column="20" selection-end-line="124" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#377#707#0" expanded="false" />
+            <element signature="e#747#886#0" expanded="false" />
+            <element signature="e#947#1081#0" expanded="false" />
+            <element signature="e#1136#1713#0" expanded="false" />
+            <element signature="e#1777#2015#0" expanded="false" />
+            <element signature="e#4296#4612#0" expanded="false" />
+            <element signature="e#4721#5152#0" expanded="false" />
+            <element signature="e#5198#5799#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

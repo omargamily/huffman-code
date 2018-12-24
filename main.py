@@ -1,7 +1,6 @@
 from bitstring import BitArray, Bits
 from tree_node import Tree_Node
-
-
+import os
 class HuffmanCode:
     def __init__(self):
         self.char_freq = {}
@@ -100,6 +99,32 @@ class HuffmanCode:
              'compressed.txt', 'ab').write(text_bytes)
         print('compressed')
 
+    def compress_folders(self,foldername):
+        files_list = os.listdir(foldername)
+        text = ''
+        for file in files_list:
+            text += self.get_frequency('./' + foldername + "/" + file)
+        self.root_nodes()
+        self.WalkTree(self.roots[0], '')
+        print(self.codemap)
+        s = ''
+        for key in self.codemap.keys():
+            s = s + key + '\t' + self.codemap.get(key) + '\n'
+        s = s + '--\n'
+        #print codemap
+        open('folder compressed.txt', 'w').write(s)
+        for file in files_list:
+            f = open('./' + foldername + "/" + file,'r')
+            text1 = f.read()
+            f.close()
+            text_bytes, padded_byte = self.encode(text1)
+            open('folder compressed.txt', 'ab').write(padded_byte)
+            open('folder compressed.txt', 'ab').write(text_bytes)
+            open('folder compressed.txt', 'a').write('\n--')
+            text1 = ''
+        print('compressed')
+
+
     # ----------------------decompression-------------------
     def decode(self, text):
         ans = ''
@@ -152,5 +177,6 @@ class HuffmanCode:
 
 if __name__ == '__main__':
     hc = HuffmanCode()
-    hc.compress('test.txt')
-    hc.decompress('testcompressed.txt')
+    hc.compress_folders('test')
+    #hc.compress('test.txt')
+    #hc.decompress('testcompressed.txt')
