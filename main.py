@@ -75,8 +75,10 @@ class HuffmanCode:
             padded_bits = str(bin(8 - (len(bits.bin) % 8)))
         else:
             padded_bits = '0'
-        while len(padded_bits.replace("b", "")) % 8 != 0:
+        for i in range(8-len(padded_bits.replace("0b",""))):
             padded_bits = '0' + padded_bits
+
+        d = Bits(bin=padded_bits).bin
         return bits.tobytes(), Bits(bin=padded_bits).tobytes()
 
     # write binary characters into file
@@ -98,6 +100,7 @@ class HuffmanCode:
              'compressed.txt', 'ab').write(text_bytes)
         print('compressed')
 
+    # ----------------------decompression-------------------
     def decode(self, text):
         ans = ''
         i = n = 0
@@ -114,17 +117,18 @@ class HuffmanCode:
     # get code map and return line number where binary starts
     def get_codemap(self, filename):
         f = open(filename, 'r', errors='ignore')
-        linecounter = 0
+        LineCounter = 0
         while True:
             line = f.readline()
             if line == '--\n':
                 f.close()
                 break
             else:
-                var_code = line.rstrip('\n').split('\t')
-                self.codemap.update({var_code[1]: var_code[0]})
-            linecounter += 1
-        return linecounter
+                if line != '\n':
+                    var_code = line.rstrip('\n').split('\t')
+                    self.codemap.update({var_code[1]: var_code[0]})
+            LineCounter += 1
+        return LineCounter
 
     def decompress(self, filename):
         linecounter = self.get_codemap(filename)
@@ -143,13 +147,10 @@ class HuffmanCode:
         text_array = text_array[8:]
         if padded != 0:
             text_array = text_array[:-padded]
-        # self.decode(text_array, filename)
-        open(filename.replace("compressed","decompressed"),'w').write(self.decode(text_array))
-
-
+        open(filename.replace("compressed", "decompressed"), 'w').write(self.decode(text_array))
 
 
 if __name__ == '__main__':
     hc = HuffmanCode()
-    hc.compress('test2.txt')
-    hc.decompress('test2compressed.txt')
+    hc.compress('test.txt')
+    hc.decompress('testcompressed.txt')
