@@ -1,6 +1,9 @@
 from bitstring import BitArray, Bits
 from tree_node import Tree_Node
 import os
+import timeit
+
+
 class HuffmanCode:
     def __init__(self):
         self.char_freq = {}
@@ -74,7 +77,7 @@ class HuffmanCode:
             padded_bits = str(bin(8 - (len(bits.bin) % 8)))
         else:
             padded_bits = '0'
-        for i in range(8-len(padded_bits.replace("0b",""))):
+        for i in range(8 - len(padded_bits.replace("0b", ""))):
             padded_bits = '0' + padded_bits
 
         d = Bits(bin=padded_bits).bin
@@ -99,7 +102,7 @@ class HuffmanCode:
              'compressed.txt', 'ab').write(text_bytes)
         print('compressed')
 
-    def compress_folders(self,foldername):
+    def compress_folders(self, foldername):
         files_list = os.listdir(foldername)
         text = ''
         for file in files_list:
@@ -111,19 +114,19 @@ class HuffmanCode:
         for key in self.codemap.keys():
             s = s + key + '\t' + self.codemap.get(key) + '\n'
         s = s + '--\n'
-        #print codemap
+        # print codemap
         open('folder compressed.txt', 'w').write(s)
         for file in files_list:
-            f = open('./' + foldername + "/" + file,'r')
+            f = open('./' + foldername + "/" + file, 'r')
             text1 = f.read()
             f.close()
             text_bytes, padded_byte = self.encode(text1)
+            open('folder compressed.txt', 'a').write('-' + file + '-' + '\n')
             open('folder compressed.txt', 'ab').write(padded_byte)
             open('folder compressed.txt', 'ab').write(text_bytes)
-            open('folder compressed.txt', 'a').write('\n--')
+            open('folder compressed.txt', 'a').write('\n--\n')
             text1 = ''
         print('compressed')
-
 
     # ----------------------decompression-------------------
     def decode(self, text):
@@ -153,6 +156,7 @@ class HuffmanCode:
                     var_code = line.rstrip('\n').split('\t')
                     self.codemap.update({var_code[1]: var_code[0]})
             LineCounter += 1
+        print(self.codemap)
         return LineCounter
 
     def decompress(self, filename):
@@ -174,9 +178,52 @@ class HuffmanCode:
             text_array = text_array[:-padded]
         open(filename.replace("compressed", "decompressed"), 'w').write(self.decode(text_array))
 
+    def decompress_folders(self, filename):
+        linecounter = self.get_codemap(filename)
+        text_array = ''
+        fp = open(filename, 'rb')
+        os.makedirs('testdecompressed')
+        for i, line in enumerate(fp):
+            # start using binary data
+            if i > linecounter:
+                text_array = text_array + Bits(line).bin
+                padded = int(text_array[:8], 2)
+                text_array = text_array[8:]
+                if padded != 0:
+                    text_array = text_array[:-padded]
+                open(filename.replace("compressed", "decompressed"), 'w').write(self.decode(text_array))
+
+        fp.close()
+
+    def compression_ratio(self):
+        ratio = 0
+        for key, value in self.char_freq.items():
+            ratio += (len(self.codemap.get(key)) * int(value))
+        return ratio / 8
+
 
 if __name__ == '__main__':
+    filename = input('enter filename')
+    state = input('1-- compression\n2-- decompression\n3-- folder compression\n4-- folder decompress')
     hc = HuffmanCode()
-    hc.compress_folders('test')
-    #hc.compress('test.txt')
-    #hc.decompress('testcompressed.txt')
+    if state == '1':
+        start = timeit.default_timer()
+        hc.compress(filename)
+        stop = timeit.default_timer()
+        print('compression rate: ' + str(hc.compression_ratio()))
+        print('time: ' +str(stop - start))
+    if state == '2':
+        start = timeit.default_timer()
+        hc.decompress(filename)
+        stop = timeit.default_timer()
+        print('time: ' + str(stop - start))
+    if state == '3':
+        start = timeit.default_timer()
+        hc.compress_folders(filename)
+        stop = timeit.default_timer()
+        print('time: ' + str(stop - start))
+    if state == 4:
+        start = timeit.default_timer()
+        hc.decompress_folders(filename)
+        stop = timeit.default_timer()
+        print('time: ' + str(stop - start))
